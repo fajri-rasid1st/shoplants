@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shoplants/ui/screens/main_screen.dart';
+import 'package:shoplants/ui/screens/sign_in_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 void main() {
@@ -13,11 +13,10 @@ void main() {
   ]);
 
   // change status bar color
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarIconBrightness: Brightness.dark,
+    systemNavigationBarColor: backGroundColor,
   ));
 
   runApp(const MyApp());
@@ -50,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: backGroundColor,
       ),
-      home: const MainScreen(),
+      home: const SignInScreen(),
     );
   }
 }

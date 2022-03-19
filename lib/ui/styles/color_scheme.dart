@@ -6,3 +6,4 @@ Color tertiaryColor = const Color(0XFFF9C920);
 Color backGroundColor = const Color(0XFFFAF9F9);
 Color dangerColor = const Color(0XFFF52525);
 Color primaryTextColor = const Color(0XFF323232);
+Color secondaryTextColor = const Color(0XFF7C7C84);
