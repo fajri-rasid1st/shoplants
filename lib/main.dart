@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shoplants/ui/screens/sign_in_screen.dart';
+import 'package:shoplants/ui/screens/welcome_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 void main() {
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: backGroundColor,
       ),
-      home: const SignInScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

@@ -2,34 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreen();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-  bool isPasswordVisible = false;
-
-  late String usernameOrEmail;
-  late String password;
+class _WelcomeScreen extends State<WelcomeScreen> {
+  late String email;
+  late String name;
 
   final formKey = GlobalKey<FormState>();
-  final usernameOrEmailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
 
   @override
   void initState() {
-    usernameOrEmailController.addListener(() => setState(() {}));
+    emailController.addListener(() => setState(() {}));
+    nameController.addListener(() => setState(() {}));
 
     super.initState();
   }
 
   @override
   void dispose() {
-    usernameOrEmailController.dispose();
-    passwordController.dispose();
+    emailController.dispose();
+    nameController.dispose();
 
     super.dispose();
   }
@@ -51,7 +50,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   fit: BoxFit.fitWidth,
                 ),
                 Positioned(
-                  bottom: -40,
+                  bottom: -36,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
@@ -60,13 +59,19 @@ class _SignInScreenState extends State<SignInScreen> {
                         RichText(
                           text: TextSpan(
                             children: <TextSpan>[
-                              buildTextSpan("Sign ", primaryTextColor),
-                              buildTextSpan("In", primaryColor),
+                              buildTextSpan(
+                                text: "Hello, ",
+                                color: primaryTextColor,
+                              ),
+                              buildTextSpan(
+                                text: "Philes!",
+                                color: primaryColor,
+                              ),
                             ],
                           ),
                         ),
                         const Text(
-                          'Welcome there, login with your account first.',
+                          'Please fill in the following form to continue.',
                         ),
                       ],
                     ),
@@ -78,7 +83,7 @@ class _SignInScreenState extends State<SignInScreen> {
               padding: const EdgeInsets.only(
                 bottom: 24,
                 left: 24,
-                top: 64,
+                top: 56,
                 right: 24,
               ),
               child: Form(
@@ -86,10 +91,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    buildUsernameOrEmailField(),
-                    const SizedBox(height: 16),
-                    buildPasswordField(),
-                    const SizedBox(height: 16),
+                    buildEmailField(),
+                    const SizedBox(height: 20),
+                    buildNameField(),
+                    const SizedBox(height: 20),
                     buildSubmitButton(),
                   ],
                 ),
@@ -101,87 +106,94 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  TextSpan buildTextSpan(String text, Color color) {
+  TextSpan buildTextSpan({required String text, required Color color}) {
     return TextSpan(
       text: text,
       style: TextStyle(
         fontFamily: "Poppins",
-        fontSize: 56,
+        fontSize: 36,
         fontWeight: FontWeight.bold,
         color: color,
       ),
     );
   }
 
-  TextFormField buildUsernameOrEmailField() {
+  TextFormField buildEmailField() {
     return TextFormField(
-      controller: usernameOrEmailController,
+      controller: emailController,
+      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
-        labelText: "Username",
+        labelText: "Email",
         labelStyle: TextStyle(color: secondaryTextColor),
         floatingLabelStyle: TextStyle(color: primaryColor),
-        prefixIcon: const Icon(Icons.person_outline_rounded),
-        suffixIcon: usernameOrEmailController.text.isEmpty
+        prefixIcon: const Icon(Icons.email_outlined),
+        suffixIcon: emailController.text.isEmpty
             ? const SizedBox()
             : IconButton(
-                onPressed: () => usernameOrEmailController.clear(),
+                onPressed: () => emailController.clear(),
                 icon: const Icon(Icons.close),
               ),
       ),
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (value) {
-        setState(() {
-          usernameOrEmail = value ?? '';
-        });
+      validator: (value) {
+        final regExp = RegExp(
+          r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
+        );
+
+        if (!regExp.hasMatch(value!)) {
+          return "Please enter a valid email.";
+        }
+
+        return null;
       },
-      validator: validator,
+      onSaved: (value) {
+        setState(() => email = value!);
+      },
     );
   }
 
-  TextFormField buildPasswordField() {
+  TextFormField buildNameField() {
     return TextFormField(
-      controller: passwordController,
+      controller: nameController,
+      keyboardType: TextInputType.name,
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
-        labelText: "Password",
+        labelText: "Name",
         labelStyle: TextStyle(color: secondaryTextColor),
         floatingLabelStyle: TextStyle(color: primaryColor),
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
-        suffixIcon: IconButton(
-          onPressed: () {
-            setState(() {
-              isPasswordVisible = !isPasswordVisible;
-            });
-          },
-          icon: isPasswordVisible
-              ? const Icon(Icons.visibility_off_outlined)
-              : const Icon(Icons.visibility_outlined),
-        ),
+        prefixIcon: const Icon(Icons.person_outlined),
+        suffixIcon: nameController.text.isEmpty
+            ? const SizedBox()
+            : IconButton(
+                onPressed: () => nameController.clear(),
+                icon: const Icon(Icons.close),
+              ),
       ),
-      obscureText: isPasswordVisible,
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (value) {
-        setState(() {
-          password = value ?? '';
-        });
+      validator: (value) {
+        if (value!.trim().isEmpty) {
+          return "Field cannot be empty.";
+        }
+
+        return null;
       },
-      validator: validator,
+      onSaved: (value) {
+        setState(() => name = value!);
+      },
     );
   }
 
   ElevatedButton buildSubmitButton() {
     return ElevatedButton(
       onPressed: () {
-        final isFormValid = formKey.currentState!.validate();
+        FocusScope.of(context).unfocus();
 
-        if (isFormValid) {
+        if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
 
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('$usernameOrEmail \n $password')),
+            SnackBar(content: Text('$email \n $name')),
           );
         }
       },
@@ -191,13 +203,5 @@ class _SignInScreenState extends State<SignInScreen> {
         padding: const EdgeInsets.all(16),
       ),
     );
-  }
-
-  String? validator(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return "Field cannot be empty";
-    }
-
-    return null;
   }
 }
