@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shoplants/data/models/user.dart';
+import 'package:shoplants/data/utils/const.dart';
+import 'package:shoplants/data/utils/user_preferences.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -183,6 +186,15 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
+
+          UserPreferences.setUser(
+            User(
+              id: Const.userId,
+              email: _email,
+              name: _name,
+              imagePath: Const.profilePath,
+            ),
+          );
         }
       },
       child: const Icon(Icons.arrow_forward_rounded),

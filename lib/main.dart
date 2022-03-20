@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shoplants/data/utils/user_preferences.dart';
 import 'package:shoplants/ui/screens/welcome_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // prevent landscape orientation
@@ -18,6 +19,9 @@ void main() {
     statusBarIconBrightness: Brightness.light,
     systemNavigationBarColor: backGroundColor,
   ));
+
+  // initialize user preferences
+  await UserPreferences.init();
 
   runApp(const MyApp());
 }
