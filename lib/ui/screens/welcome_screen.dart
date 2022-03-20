@@ -10,8 +10,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreen extends State<WelcomeScreen> {
-  late String email;
-  late String name;
+  late String _email;
+  late String _name;
 
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -50,7 +50,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                   fit: BoxFit.fitWidth,
                 ),
                 Positioned(
-                  bottom: -36,
+                  bottom: -32,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
@@ -64,7 +64,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                                 color: primaryTextColor,
                               ),
                               buildTextSpan(
-                                text: "Philes!",
+                                text: "There!",
                                 color: primaryColor,
                               ),
                             ],
@@ -83,7 +83,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
               padding: const EdgeInsets.only(
                 bottom: 24,
                 left: 24,
-                top: 56,
+                top: 60,
                 right: 24,
               ),
               child: Form(
@@ -121,8 +121,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   TextFormField buildEmailField() {
     return TextFormField(
       controller: emailController,
-      keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: "Email",
@@ -141,23 +141,19 @@ class _WelcomeScreen extends State<WelcomeScreen> {
           r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
         );
 
-        if (!regExp.hasMatch(value!)) {
-          return "Please enter a valid email.";
-        }
+        if (!regExp.hasMatch(value!)) return "Please enter a valid email.";
 
         return null;
       },
-      onSaved: (value) {
-        setState(() => email = value!);
-      },
+      onSaved: (value) => setState(() => _email = value!),
     );
   }
 
   TextFormField buildNameField() {
     return TextFormField(
       controller: nameController,
-      keyboardType: TextInputType.name,
       textInputAction: TextInputAction.done,
+      keyboardType: TextInputType.name,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: "Name",
@@ -172,15 +168,11 @@ class _WelcomeScreen extends State<WelcomeScreen> {
               ),
       ),
       validator: (value) {
-        if (value!.trim().isEmpty) {
-          return "Field cannot be empty.";
-        }
+        if (value!.trim().isEmpty) return "Field cannot be empty.";
 
         return null;
       },
-      onSaved: (value) {
-        setState(() => name = value!);
-      },
+      onSaved: (value) => setState(() => _name = value!),
     );
   }
 
@@ -191,10 +183,6 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('$email \n $name')),
-          );
         }
       },
       child: const Icon(Icons.arrow_forward_rounded),
