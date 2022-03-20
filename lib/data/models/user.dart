@@ -1,5 +1,3 @@
-import 'package:shoplants/data/models/plant.dart';
-
 class User {
   final String id;
   final String email;
