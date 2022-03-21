@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
+import 'package:shoplants/ui/screens/main_screen.dart';
 import 'package:shoplants/ui/screens/welcome_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/widgets/loading_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +20,8 @@ void main() async {
   // change status bar color
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.dark,
     systemNavigationBarColor: backGroundColor,
   ));
 
@@ -48,12 +53,27 @@ class MyApp extends StatelessWidget {
           tertiary: tertiaryColor,
           background: backGroundColor,
           error: dangerColor,
-          outline: primaryTextColor,
-          shadow: primaryTextColor,
+          outline: secondaryTextColor,
+          shadow: secondaryTextColor,
         ),
         scaffoldBackgroundColor: backGroundColor,
       ),
-      home: const WelcomeScreen(),
+      home: FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              if (snapshot.data?.getBool("isLogin") == null) {
+                return const WelcomeScreen();
+              }
+
+              return MainScreen(user: UserPreferences.getUser(Const.userId));
+            }
+          }
+
+          return const LoadingWidget();
+        },
+      ),
     );
   }
 }

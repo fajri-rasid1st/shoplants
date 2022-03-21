@@ -1,3 +1,5 @@
+import 'package:shoplants/data/utils/const.dart';
+
 class Plant {
   final String name;
   final String alias;
@@ -30,8 +32,8 @@ var plantList = [
       "20-25 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_alocasia-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_alocasia.png",
+      "${Const.baseUrl}/plant_alocasia-removebg-preview.png",
+      "${Const.baseUrl}/plant_alocasia.png",
     ],
   ),
   const Plant(
@@ -47,8 +49,8 @@ var plantList = [
       "13-27 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_aloe_vera-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_aloe_vera.jpg",
+      "${Const.baseUrl}/plant_aloe_vera-removebg-preview.png",
+      "${Const.baseUrl}/plant_aloe_vera.jpg",
     ],
   ),
   const Plant(
@@ -64,8 +66,8 @@ var plantList = [
       "18-25 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_areca_palm-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_areca_palm.jpg",
+      "${Const.baseUrl}/plant_areca_palm-removebg-preview.png",
+      "${Const.baseUrl}/plant_areca_palm.jpg",
     ],
   ),
   const Plant(
@@ -81,8 +83,8 @@ var plantList = [
       "10-18 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_asparagus_fern-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_asparagus_fern.jpg",
+      "${Const.baseUrl}/plant_asparagus_fern-removebg-preview.png",
+      "${Const.baseUrl}/plant_asparagus_fern.jpg",
     ],
   ),
   const Plant(
@@ -98,8 +100,8 @@ var plantList = [
       "23-32 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_banana_tree-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_banana_tree.jpg",
+      "${Const.baseUrl}/plant_banana_tree-removebg-preview.png",
+      "${Const.baseUrl}/plant_banana_tree.jpg",
     ],
   ),
   const Plant(
@@ -115,8 +117,8 @@ var plantList = [
       "18-40 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_cactus-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_cactus.jpg",
+      "${Const.baseUrl}/plant_cactus-removebg-preview.png",
+      "${Const.baseUrl}/plant_cactus.jpg",
     ],
   ),
   const Plant(
@@ -132,8 +134,8 @@ var plantList = [
       "11-18 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_chinese_money-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_chinese_money.png",
+      "${Const.baseUrl}/plant_chinese_money-removebg-preview.png",
+      "${Const.baseUrl}/plant_chinese_money.png",
     ],
   ),
   const Plant(
@@ -149,8 +151,8 @@ var plantList = [
       "13-25 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_dracaena_trifasciata-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_dracaena_trifasciata.jpg",
+      "${Const.baseUrl}/plant_dracaena_trifasciata-removebg-preview.png",
+      "${Const.baseUrl}/plant_dracaena_trifasciata.jpg",
     ],
   ),
   const Plant(
@@ -166,8 +168,8 @@ var plantList = [
       "18-27 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_ficus_lyrata-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_ficus_lyrata.jpg",
+      "${Const.baseUrl}/plant_ficus_lyrata-removebg-preview.png",
+      "${Const.baseUrl}/plant_ficus_lyrata.jpg",
     ],
   ),
   const Plant(
@@ -183,8 +185,8 @@ var plantList = [
       "13-32 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_fishbone_cactus-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_fishbone_cactus.png",
+      "${Const.baseUrl}/plant_fishbone_cactus-removebg-preview.png",
+      "${Const.baseUrl}/plant_fishbone_cactus.png",
     ],
   ),
   const Plant(
@@ -200,8 +202,8 @@ var plantList = [
       "10-20 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_leyland_cypress-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_leyland_cypress.jpg",
+      "${Const.baseUrl}/plant_leyland_cypress-removebg-preview.png",
+      "${Const.baseUrl}/plant_leyland_cypress.jpg",
     ],
   ),
   const Plant(
@@ -217,8 +219,8 @@ var plantList = [
       "15-24 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_monstera_deliciosa-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_monstera_deliciosa.png",
+      "${Const.baseUrl}/plant_monstera_deliciosa-removebg-preview.png",
+      "${Const.baseUrl}/plant_monstera_deliciosa.png",
     ],
   ),
   const Plant(
@@ -234,8 +236,8 @@ var plantList = [
       "18-27 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_paddle_removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_paddle.jpg",
+      "${Const.baseUrl}/plant_paddle_removebg-preview.png",
+      "${Const.baseUrl}/plant_paddle.jpg",
     ],
   ),
   const Plant(
@@ -251,8 +253,8 @@ var plantList = [
       "18-25 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_spider-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_spider.png",
+      "${Const.baseUrl}/plant_spider-removebg-preview.png",
+      "${Const.baseUrl}/plant_spider.png",
     ],
   ),
   const Plant(
@@ -268,8 +270,8 @@ var plantList = [
       "18-40 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_red_hat_bunny_cactus-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_red_hat_bunny_cactus.jpg",
+      "${Const.baseUrl}/plant_red_hat_bunny_cactus-removebg-preview.png",
+      "${Const.baseUrl}/plant_red_hat_bunny_cactus.jpg",
     ],
   ),
   const Plant(
@@ -285,8 +287,8 @@ var plantList = [
       "18-37 °c",
     ],
     imgUrls: <String>[
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_velvet_calathea-removebg-preview.png",
-      "https://raw.githubusercontent.com/fajri-rasid1st/assets/main/plants/plant_velvet_calathea.jpg",
+      "${Const.baseUrl}/plant_velvet_calathea-removebg-preview.png",
+      "${Const.baseUrl}/plant_velvet_calathea.jpg",
     ],
   ),
 ];

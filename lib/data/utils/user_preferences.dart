@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/user.dart';
-import 'package:shoplants/data/utils/const.dart';
 
 class UserPreferences {
   static late SharedPreferences _preferences;
@@ -10,10 +9,18 @@ class UserPreferences {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  // function to persistent store user data locally with shared preferences
-  static Future setUser(User user) async {
+  // function to store persistent user data locally
+  static Future<void> setUser(User user) async {
     final userJson = user.toJson();
+    final userId = user.id;
 
-    await _preferences.setString(Const.userId, userJson);
+    await _preferences.setString(userId, userJson);
+  }
+
+  // fucntion to read user data from persistent storage
+  static User getUser(String userId) {
+    final userJson = _preferences.getString(userId);
+
+    return User.fromJson(userJson!);
   }
 }

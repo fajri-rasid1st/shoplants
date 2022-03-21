@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
+import 'package:shoplants/ui/screens/main_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -55,7 +57,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                 Positioned(
                   bottom: -32,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -85,9 +87,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             Padding(
               padding: const EdgeInsets.only(
                 bottom: 24,
-                left: 24,
+                left: 16,
                 top: 60,
-                right: 24,
+                right: 16,
               ),
               child: Form(
                 key: formKey,
@@ -181,20 +183,39 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
   ElevatedButton buildSubmitButton() {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
+        // remove the focus of keybooard
         FocusScope.of(context).unfocus();
 
         if (formKey.currentState!.validate()) {
+          // save form field
           formKey.currentState!.save();
 
-          UserPreferences.setUser(
-            User(
-              id: Const.userId,
-              email: _email,
-              name: _name,
-              imagePath: Const.profilePath,
-            ),
+          // initialize new user object
+          final user = User(
+            id: Const.userId,
+            email: _email,
+            name: _name,
+            imagePath: Const.profilePath,
           );
+
+          // obtain shared preferences
+          final prefs = await SharedPreferences.getInstance();
+
+          Future.wait([
+            // set login to true
+            prefs.setBool("isLogin", true),
+            // set user
+            UserPreferences.setUser(user),
+          ]).then((_) {
+            // navigate and replace this screen with main screen
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: ((context) => MainScreen(user: user)),
+              ),
+            );
+          });
         }
       },
       child: const Icon(Icons.arrow_forward_rounded),
