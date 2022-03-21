@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoplants/data/models/user.dart';
+import 'package:shoplants/ui/pages/home_page.dart';
+import 'package:shoplants/ui/pages/search_page.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 class MainScreen extends StatefulWidget {
@@ -17,29 +19,27 @@ class _MainScreenState extends State<MainScreen> {
 
   // initialize atributes
   int _currentIndex = 0;
+  String _title = 'Discover';
 
   @override
   void initState() {
-    // TODO: implement initState
+    _pages = <Widget>[HomePage(user: widget.user), const SearchPage()];
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Text('data'),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.shopify),
-      ),
+      appBar: buildAppbar(title: _title),
+      body: buildMainScreen(),
+      bottomNavigationBar: buildBottomNavigationBar(),
+      floatingActionButton: buildFab(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  AppBar buildAppbar({required String title, required String imagePath}) {
+  AppBar buildAppbar({required String title}) {
     return AppBar(
       title: Text(
         title,
@@ -69,10 +69,87 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ],
+      elevation: 0.8,
       titleSpacing: 16,
       toolbarHeight: 64,
       backgroundColor: backGroundColor,
-      elevation: 0.8,
+    );
+  }
+
+  Scaffold buildMainScreen() {
+    return Scaffold(
+      body: SafeArea(
+        child: _pages[_currentIndex],
+      ),
+    );
+  }
+
+  Container buildBottomNavigationBar() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(16),
+          topLeft: Radius.circular(16),
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            blurRadius: 0.1,
+            spreadRadius: 0.1,
+            color: secondaryTextColor,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          selectedFontSize: 12,
+          unselectedFontSize: 12,
+          type: BottomNavigationBarType.fixed,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search_outlined),
+              activeIcon: Icon(Icons.search),
+              label: 'Search',
+            ),
+          ],
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+
+              switch (index) {
+                case 0:
+                  _title = 'Discover';
+
+                  break;
+                case 1:
+                  _title = 'Explore';
+
+                  break;
+              }
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  FloatingActionButton buildFab() {
+    return FloatingActionButton(
+      onPressed: () {},
+      backgroundColor: primaryColor,
+      child: const Icon(
+        Icons.shopify,
+        size: 32,
+      ),
     );
   }
 }

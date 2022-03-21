@@ -18,22 +18,22 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   late String _email;
   late String _name;
 
-  final formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
-  final nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   void initState() {
-    emailController.addListener(() => setState(() {}));
-    nameController.addListener(() => setState(() {}));
+    _emailController.addListener(() => setState(() {}));
+    _nameController.addListener(() => setState(() {}));
 
     super.initState();
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    nameController.dispose();
+    _emailController.dispose();
+    _nameController.dispose();
 
     super.dispose();
   }
@@ -85,14 +85,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                bottom: 24,
-                left: 16,
-                top: 60,
-                right: 16,
-              ),
+              padding: const EdgeInsets.fromLTRB(16, 60, 16, 24),
               child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
@@ -125,7 +120,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
   TextFormField buildEmailField() {
     return TextFormField(
-      controller: emailController,
+      controller: _emailController,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
@@ -134,10 +129,10 @@ class _WelcomeScreen extends State<WelcomeScreen> {
         labelStyle: TextStyle(color: secondaryTextColor),
         floatingLabelStyle: TextStyle(color: primaryColor),
         prefixIcon: const Icon(Icons.email_outlined),
-        suffixIcon: emailController.text.isEmpty
+        suffixIcon: _emailController.text.isEmpty
             ? const SizedBox()
             : IconButton(
-                onPressed: () => emailController.clear(),
+                onPressed: () => _emailController.clear(),
                 icon: const Icon(Icons.close),
               ),
       ),
@@ -156,7 +151,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
   TextFormField buildNameField() {
     return TextFormField(
-      controller: nameController,
+      controller: _nameController,
       textInputAction: TextInputAction.done,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
@@ -165,10 +160,10 @@ class _WelcomeScreen extends State<WelcomeScreen> {
         labelStyle: TextStyle(color: secondaryTextColor),
         floatingLabelStyle: TextStyle(color: primaryColor),
         prefixIcon: const Icon(Icons.person_outlined),
-        suffixIcon: nameController.text.isEmpty
+        suffixIcon: _nameController.text.isEmpty
             ? const SizedBox()
             : IconButton(
-                onPressed: () => nameController.clear(),
+                onPressed: () => _nameController.clear(),
                 icon: const Icon(Icons.close),
               ),
       ),
@@ -187,9 +182,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
         // remove the focus of keybooard
         FocusScope.of(context).unfocus();
 
-        if (formKey.currentState!.validate()) {
+        if (_formKey.currentState!.validate()) {
           // save form field
-          formKey.currentState!.save();
+          _formKey.currentState!.save();
 
           // initialize new user object
           final user = User(
