@@ -140,7 +140,12 @@ class _DetailScreenState extends State<DetailScreen> {
                           child: ElevatedButton.icon(
                             onPressed: () {},
                             icon: const Icon(Icons.shopping_cart_checkout),
-                            label: Text("Checkout ${widget.plant.price}"),
+                            label: Text(
+                              "Checkout \$${widget.plant.price}",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12),
                               shape: RoundedRectangleBorder(
@@ -167,8 +172,8 @@ class _DetailScreenState extends State<DetailScreen> {
     double? iconSize = 36,
   }) {
     return Container(
-      width: 100,
-      height: 100,
+      width: 88,
+      height: 88,
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -185,7 +190,10 @@ class _DetailScreenState extends State<DetailScreen> {
             color: secondaryColor,
           ),
           const SizedBox(height: 2),
-          Text(characteristic),
+          Text(
+            characteristic,
+            style: const TextStyle(fontSize: 12),
+          ),
         ],
       ),
     );

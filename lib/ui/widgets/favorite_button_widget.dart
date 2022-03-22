@@ -31,8 +31,10 @@ class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
           ..hideCurrentSnackBar()
           ..showSnackBar(snackBar);
       },
-      icon: Icon(_isFavorite ? Icons.favorite : Icons.favorite_border),
-      color: _isFavorite ? dangerColor : Colors.white,
+      icon: Icon(
+        _isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+      ),
+      color: _isFavorite ? tertiaryColor : Colors.white,
       tooltip: 'Favorite',
     );
   }

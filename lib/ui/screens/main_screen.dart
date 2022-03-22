@@ -15,7 +15,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   // declarate late final atributes
-  late final List<Widget> _pages;
+  late final List<StatefulWidget> _pages;
 
   // initialize atributes
   int _currentIndex = 0;
@@ -23,7 +23,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    _pages = <Widget>[HomePage(user: widget.user), const SearchPage()];
+    _pages = <StatefulWidget>[
+      HomePage(user: widget.user),
+      const SearchPage(),
+    ];
 
     super.initState();
   }
@@ -49,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
           color: primaryTextColor,
         ),
       ),
-      actions: [
+      actions: <Widget>[
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: GestureDetector(
@@ -76,13 +79,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 
-  Scaffold buildMainScreen() {
-    return Scaffold(
-      body: SafeArea(
-        child: _pages[_currentIndex],
-      ),
-    );
-  }
+  StatefulWidget buildMainScreen() => _pages[_currentIndex];
 
   Container buildBottomNavigationBar() {
     return Container(

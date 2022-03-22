@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
           secondary: secondaryColor,
           tertiary: tertiaryColor,
           background: backGroundColor,
-          error: dangerColor,
           outline: secondaryTextColor,
           shadow: secondaryTextColor,
         ),

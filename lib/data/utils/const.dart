@@ -280,7 +280,7 @@ class Const {
       alias: "Opuntia Microdasys",
       price: 99,
       about:
-          "The most tactile of houseplants, the leaves do really feel like the softest velvet.",
+          "The most tactile of houseplants, the leaves do really feel like the softest velvet. Not as bright as a lot of this family the leaves are a rich green on the top and a dark burgundy underneath for the purple varietal.",
       characteristics: <String>[
         "Drained",
         "Normal Light",

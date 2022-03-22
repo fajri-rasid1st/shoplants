@@ -15,24 +15,24 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreen extends State<WelcomeScreen> {
-  late String _email;
   late String _name;
+  late String _address;
 
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
   final _nameController = TextEditingController();
+  final _adressController = TextEditingController();
 
   @override
   void initState() {
-    _emailController.addListener(() => setState(() {}));
     _nameController.addListener(() => setState(() {}));
+    _adressController.addListener(() => setState(() {}));
 
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _adressController.dispose();
     _nameController.dispose();
 
     super.dispose();
@@ -91,9 +91,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                    buildEmailField(),
-                    const SizedBox(height: 20),
                     buildNameField(),
+                    const SizedBox(height: 20),
+                    buildAdressField(),
                     const SizedBox(height: 20),
                     buildSubmitButton(),
                   ],
@@ -118,46 +118,16 @@ class _WelcomeScreen extends State<WelcomeScreen> {
     );
   }
 
-  TextFormField buildEmailField() {
-    return TextFormField(
-      controller: _emailController,
-      textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: "Email",
-        labelStyle: TextStyle(color: secondaryTextColor),
-        floatingLabelStyle: TextStyle(color: primaryColor),
-        prefixIcon: const Icon(Icons.email_outlined),
-        suffixIcon: _emailController.text.isEmpty
-            ? const SizedBox()
-            : IconButton(
-                onPressed: () => _emailController.clear(),
-                icon: const Icon(Icons.close),
-              ),
-      ),
-      validator: (value) {
-        final regExp = RegExp(
-          r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+",
-        );
-
-        if (!regExp.hasMatch(value!)) return "Please enter a valid email.";
-
-        return null;
-      },
-      onSaved: (value) => setState(() => _email = value!),
-    );
-  }
-
   TextFormField buildNameField() {
     return TextFormField(
       controller: _nameController,
-      textInputAction: TextInputAction.done,
+      textInputAction: TextInputAction.next,
       keyboardType: TextInputType.name,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         labelText: "Name",
         labelStyle: TextStyle(color: secondaryTextColor),
+        hintText: "Your name",
         floatingLabelStyle: TextStyle(color: primaryColor),
         prefixIcon: const Icon(Icons.person_outlined),
         suffixIcon: _nameController.text.isEmpty
@@ -176,6 +146,34 @@ class _WelcomeScreen extends State<WelcomeScreen> {
     );
   }
 
+  TextFormField buildAdressField() {
+    return TextFormField(
+      controller: _adressController,
+      textInputAction: TextInputAction.done,
+      keyboardType: TextInputType.streetAddress,
+      decoration: InputDecoration(
+        border: const OutlineInputBorder(),
+        labelText: "Address",
+        labelStyle: TextStyle(color: secondaryTextColor),
+        hintText: "Your address (e.g place, street, building, etc)",
+        floatingLabelStyle: TextStyle(color: primaryColor),
+        prefixIcon: const Icon(Icons.place_outlined),
+        suffixIcon: _adressController.text.isEmpty
+            ? const SizedBox()
+            : IconButton(
+                onPressed: () => _adressController.clear(),
+                icon: const Icon(Icons.close),
+              ),
+      ),
+      validator: (value) {
+        if (value!.trim().isEmpty) return "Field cannot be empty.";
+
+        return null;
+      },
+      onSaved: (value) => setState(() => _address = value!),
+    );
+  }
+
   ElevatedButton buildSubmitButton() {
     return ElevatedButton(
       onPressed: () async {
@@ -189,8 +187,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
           // initialize new user object
           final user = User(
             id: Const.userId,
-            email: _email,
             name: _name,
+            address: _address,
             imagePath: Const.profilePath,
           );
 
