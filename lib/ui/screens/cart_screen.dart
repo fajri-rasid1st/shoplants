@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/widgets/loading_widget.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -40,6 +44,36 @@ class _CartScreenState extends State<CartScreen> {
         titleSpacing: 16,
         toolbarHeight: 64,
         backgroundColor: backGroundColor,
+      ),
+      body: FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              if (snapshot.data?.getString(Const.cartId) == 'empty') {
+                return buildEmptyCart();
+              }
+
+              return const Text('ada');
+            }
+          }
+
+          return const LoadingWidget();
+        },
+      ),
+    );
+  }
+
+  Center buildEmptyCart() {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          SvgPicture.asset(
+            "assets/svg/Unboxing-cuate.svg",
+            fit: BoxFit.cover,
+          ),
+          const Text('Oops, your cart is still empty!'),
+        ],
       ),
     );
   }

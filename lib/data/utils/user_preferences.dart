@@ -18,9 +18,11 @@ class UserPreferences {
   }
 
   // fucntion to read user data from persistent storage
-  static User getUser(String userId) {
+  static User? getUser(String userId) {
     final userJson = _userPreferences.getString(userId);
 
-    return User.fromJson(userJson!);
+    if (userJson != null) return User.fromJson(userJson);
+
+    return null;
   }
 }

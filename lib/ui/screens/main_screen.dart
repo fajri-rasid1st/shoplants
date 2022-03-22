@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/ui/pages/home_page.dart';
 import 'package:shoplants/ui/pages/search_page.dart';
+import 'package:shoplants/ui/screens/cart_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 class MainScreen extends StatefulWidget {
@@ -135,7 +136,14 @@ class _MainScreenState extends State<MainScreen> {
 
   FloatingActionButton buildFab() {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CartScreen(),
+          ),
+        );
+      },
       child: const Icon(Icons.shopping_cart_outlined),
       tooltip: 'Cart',
       backgroundColor: primaryColor,

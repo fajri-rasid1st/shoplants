@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplants/data/utils/cart_preferences.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
 import 'package:shoplants/ui/screens/main_screen.dart';
@@ -25,8 +26,9 @@ void main() async {
     systemNavigationBarColor: backGroundColor,
   ));
 
-  // initialize user preferences
+  // initialize user and cart preferences
   await UserPreferences.init();
+  await CartPreferences.init();
 
   runApp(const MyApp());
 }
@@ -62,11 +64,11 @@ class MyApp extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              if (snapshot.data?.getBool("isLogin") == null) {
+              if (UserPreferences.getUser(Const.userId) == null) {
                 return const WelcomeScreen();
               }
 
-              return MainScreen(user: UserPreferences.getUser(Const.userId));
+              return MainScreen(user: UserPreferences.getUser(Const.userId)!);
             }
           }
 

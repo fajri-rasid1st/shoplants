@@ -155,7 +155,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
         border: const OutlineInputBorder(),
         labelText: "Address",
         labelStyle: TextStyle(color: secondaryTextColor),
-        hintText: "Your address (e.g place, street, building, etc)",
+        hintText: "e.g place, street, building, etc",
         floatingLabelStyle: TextStyle(color: primaryColor),
         prefixIcon: const Icon(Icons.place_outlined),
         suffixIcon: _adressController.text.isEmpty
@@ -192,14 +192,15 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             imagePath: Const.profilePath,
           );
 
-          // obtain shared preferences
+          // obtained shared preference
           final prefs = await SharedPreferences.getInstance();
 
+          // set user and cart
           Future.wait([
-            // set login to true
-            prefs.setBool("isLogin", true),
             // set user
             UserPreferences.setUser(user),
+            // set empty cart
+            prefs.setString(Const.cartId, 'empty'),
           ]).then((_) {
             // navigate and replace this screen with main screen
             Navigator.pushReplacement(
