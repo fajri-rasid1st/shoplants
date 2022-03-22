@@ -150,6 +150,7 @@ class _MainScreenState extends State<MainScreen> {
         Icons.shopify,
         size: 32,
       ),
+      tooltip: 'Cart',
     );
   }
 }

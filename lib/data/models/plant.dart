@@ -14,4 +14,9 @@ class Plant {
     required this.characteristics,
     required this.imgUrls,
   });
+
+  @override
+  String toString() {
+    return 'Plant(name: $name, alias: $alias, price: $price, about: $about, characteristics: $characteristics, imgUrls: $imgUrls)';
+  }
 }

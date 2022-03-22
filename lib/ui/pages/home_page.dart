@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/widgets/grid_items_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,20 +18,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // initialize variable
+  final _plantCarousel = Const.plants.sublist(0, 8);
+  final _plantList = Const.plants.sublist(8);
+  final _bannerUrls = Const.imgBannerUrls;
+
+  // initialize first name and carousel controller
   late final _username = widget.user.name.split(' ')[0];
   late final _bannerCarouselController = CarouselController();
 
+  // declaration variable
   late String _plantName;
   late String _plantAlias;
   late int _plantPrice;
 
+  // initialize current index of banner carousel
   int _bannerActiveIndex = 0;
 
   @override
   void initState() {
-    _plantName = Const.plants[0].name;
-    _plantAlias = Const.plants[0].alias;
-    _plantPrice = Const.plants[0].price;
+    _plantName = _plantCarousel[0].name;
+    _plantAlias = _plantCarousel[0].alias;
+    _plantPrice = _plantCarousel[0].price;
 
     super.initState();
   }
@@ -38,8 +47,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 40),
+      padding: const EdgeInsets.only(bottom: 36),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           // carousel banner
@@ -48,9 +58,9 @@ class _HomePageState extends State<HomePage> {
             children: [
               CarouselSlider.builder(
                 carouselController: _bannerCarouselController,
-                itemCount: Const.imgBannerUrls.length,
+                itemCount: _bannerUrls.length,
                 itemBuilder: (context, index, realIndex) {
-                  final imageUrl = Const.imgBannerUrls[index];
+                  final imageUrl = _bannerUrls[index];
 
                   return buildBannerCarousel(imageUrl, index);
                 },
@@ -80,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Special For You, $_username!',
+                  'Special For You, $_username.',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -98,11 +108,11 @@ class _HomePageState extends State<HomePage> {
 
           // carousel plant
           CarouselSlider.builder(
-            itemCount: Const.plants.length ~/ 2,
+            itemCount: _plantCarousel.length ~/ 2,
             itemBuilder: (context, index, realIndex) {
-              final plant = Const.plants[index];
+              final plant = _plantCarousel[index];
 
-              return buildPlantCarousel(plant.imgUrls[0], index);
+              return buildPlantCarousel(plant.imgUrls[1], index);
             },
             options: CarouselOptions(
                 aspectRatio: 1 / 1,
@@ -111,9 +121,9 @@ class _HomePageState extends State<HomePage> {
                 viewportFraction: 0.7,
                 onPageChanged: (index, reason) {
                   setState(() {
-                    _plantName = Const.plants[index].name;
-                    _plantAlias = Const.plants[index].alias;
-                    _plantPrice = Const.plants[index].price;
+                    _plantName = _plantCarousel[index].name;
+                    _plantAlias = _plantCarousel[index].alias;
+                    _plantPrice = _plantCarousel[index].price;
                   });
                 }),
           ),
@@ -140,6 +150,31 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+          ),
+
+          const SizedBox(height: 16),
+
+          // divider
+          Divider(height: 4, thickness: 4, color: dividerColor),
+
+          const SizedBox(height: 24),
+
+          // some text (3)
+          const Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: Text(
+              'Most Sales This Week',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+
+          // grid list plant
+          GridItemsWidget(
+            plants: _plantList,
+            gridCount: 2,
           ),
         ],
       ),
@@ -173,10 +208,10 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.all(8),
       child: AnimatedSmoothIndicator(
         activeIndex: _bannerActiveIndex,
-        count: Const.imgBannerUrls.length,
+        count: _bannerUrls.length,
         effect: WormEffect(
-          dotWidth: 12,
-          dotHeight: 12,
+          dotWidth: 10,
+          dotHeight: 10,
           dotColor: dividerColor,
           activeDotColor: tertiaryColor,
         ),
@@ -187,11 +222,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildPlantCarousel(String imageUrl, int index) {
     return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 8),
+      margin: const EdgeInsets.only(bottom: 12),
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Stack(
         alignment: AlignmentDirectional.topEnd,
@@ -221,10 +255,9 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.all(4),
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.favorite_border_outlined,
                 size: 28,
-                color: primaryTextColor,
               ),
             ),
           ),
