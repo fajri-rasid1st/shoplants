@@ -15,9 +15,7 @@ class GridItemWidget extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(0),
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: Colors.white,
       child: InkWell(
         onTap: () {

@@ -59,8 +59,8 @@ class _MainScreenState extends State<MainScreen> {
               );
             },
             child: CircleAvatar(
-              backgroundColor: secondaryColor,
               radius: 20,
+              backgroundColor: secondaryColor,
               child: Image.asset(
                 widget.user.imagePath,
                 fit: BoxFit.fill,
@@ -87,10 +87,7 @@ class _MainScreenState extends State<MainScreen> {
   Container buildBottomNavigationBar() {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(16),
-          topLeft: Radius.circular(16),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         boxShadow: <BoxShadow>[
           BoxShadow(
             blurRadius: 1,
@@ -100,10 +97,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         child: BottomNavigationBar(
           currentIndex: _currentIndex,
           selectedFontSize: 12,
@@ -145,9 +139,9 @@ class _MainScreenState extends State<MainScreen> {
   FloatingActionButton buildFab() {
     return FloatingActionButton(
       onPressed: () {},
-      backgroundColor: primaryColor,
       child: const Icon(Icons.shopping_cart_outlined),
       tooltip: 'Cart',
+      backgroundColor: primaryColor,
     );
   }
 }

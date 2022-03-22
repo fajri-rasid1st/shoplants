@@ -215,8 +215,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
       },
       child: const Icon(Icons.arrow_forward_rounded),
       style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
         padding: const EdgeInsets.all(16),
+        shape: const CircleBorder(),
       ),
     );
   }

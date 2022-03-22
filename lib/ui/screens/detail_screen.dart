@@ -47,7 +47,10 @@ class _DetailScreenState extends State<DetailScreen> {
               },
               errorWidget: (context, url, error) {
                 return const Center(
-                  child: Icon(Icons.image_not_supported_outlined),
+                  child: Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 40,
+                  ),
                 );
               },
             ),
@@ -56,9 +59,8 @@ class _DetailScreenState extends State<DetailScreen> {
             child: Container(
               height: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(24),
-                  topLeft: Radius.circular(24),
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(24),
                 ),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
@@ -69,7 +71,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 color: backGroundColor,
               ),
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 16,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
@@ -122,9 +127,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       children: <Widget>[
                         OutlinedButton(
                           onPressed: () {},
-                          child: const Icon(
-                            Icons.add_shopping_cart,
-                          ),
+                          child: const Icon(Icons.add_shopping_cart),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.all(12),
                             shape: RoundedRectangleBorder(
@@ -136,10 +139,8 @@ class _DetailScreenState extends State<DetailScreen> {
                         Expanded(
                           child: ElevatedButton.icon(
                             onPressed: () {},
-                            icon: const Icon(
-                              Icons.shopping_cart_checkout,
-                            ),
-                            label: const Text("Checkout Now!"),
+                            icon: const Icon(Icons.shopping_cart_checkout),
+                            label: Text("Checkout ${widget.plant.price}"),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.all(12),
                               shape: RoundedRectangleBorder(
