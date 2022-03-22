@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
 
           // carousel plant
           CarouselSlider.builder(
-            itemCount: _plantCarousel.length ~/ 2,
+            itemCount: _plantCarousel.length,
             itemBuilder: (context, index, realIndex) {
               final plant = _plantCarousel[index];
 
@@ -173,10 +173,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // grid list plant
+          // grid item list plant
           GridItemsWidget(
             plants: _plantList,
-            scrollPhysics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             crossAxisCount: 2,
           ),

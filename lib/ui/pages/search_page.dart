@@ -27,26 +27,25 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SearchFieldWidget(
-          text: _query,
-          onChanged: searchPlant,
-        ),
-        Flexible(
-          child: GridItemsWidget(
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          SearchFieldWidget(
+            text: _query,
+            onChanged: searchPlant,
+          ),
+          GridItemsWidget(
             plants: _plantList,
-            scrollPhysics: const ClampingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
             crossAxisCount: 2,
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   void searchPlant(String query) {
-    final plants = _plantList.where((plant) {
+    final plants = Const.plants.where((plant) {
       final nameLower = plant.name.toLowerCase();
       final queryLower = query.toLowerCase();
 
@@ -55,12 +54,7 @@ class _SearchPageState extends State<SearchPage> {
 
     setState(() {
       _query = query;
-
-      if (_query.trim().isEmpty) {
-        _plantList = Const.plants;
-      } else {
-        _plantList = plants;
-      }
+      _plantList = plants;
     });
   }
 }

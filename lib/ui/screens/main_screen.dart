@@ -93,9 +93,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            blurRadius: 0.1,
-            spreadRadius: 0.1,
-            color: secondaryTextColor,
+            blurRadius: 1,
+            spreadRadius: 0.5,
+            color: dividerColor,
           ),
         ],
       ),
@@ -146,10 +146,7 @@ class _MainScreenState extends State<MainScreen> {
     return FloatingActionButton(
       onPressed: () {},
       backgroundColor: primaryColor,
-      child: const Icon(
-        Icons.shopify,
-        size: 32,
-      ),
+      child: const Icon(Icons.shopping_cart_outlined),
       tooltip: 'Cart',
     );
   }

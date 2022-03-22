@@ -34,6 +34,7 @@ class GridItemWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16),
               child: Hero(
                 tag: plant,
+                transitionOnUserGestures: true,
                 child: CachedNetworkImage(
                   imageUrl: plant.imgUrls[0],
                   fit: BoxFit.cover,

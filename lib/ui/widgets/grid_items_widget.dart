@@ -4,14 +4,12 @@ import 'package:shoplants/ui/widgets/grid_item_widget.dart';
 
 class GridItemsWidget extends StatelessWidget {
   final List<Plant> plants;
-  final ScrollPhysics scrollPhysics;
   final EdgeInsetsGeometry padding;
   final int crossAxisCount;
 
   const GridItemsWidget({
     Key? key,
     required this.plants,
-    required this.scrollPhysics,
     required this.padding,
     required this.crossAxisCount,
   }) : super(key: key);
@@ -19,7 +17,7 @@ class GridItemsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: scrollPhysics,
+      physics: const NeverScrollableScrollPhysics(),
       padding: padding,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,

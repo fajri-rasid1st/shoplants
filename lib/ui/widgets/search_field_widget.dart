@@ -27,6 +27,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
         boxShadow: <BoxShadow>[
           BoxShadow(
             blurRadius: 1,
+            spreadRadius: 0.5,
             color: dividerColor,
           ),
         ],
