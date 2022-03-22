@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  // initialize final atributes
+  // declarate late final atributes
   late final List<Widget> _pages;
 
   // initialize atributes

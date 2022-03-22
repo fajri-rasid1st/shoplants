@@ -23,9 +23,11 @@ class _HomePageState extends State<HomePage> {
   final _plantList = Const.plants.sublist(8);
   final _bannerUrls = Const.imgBannerUrls;
 
-  // initialize first name and carousel controller
+  // controller
+  final _bannerCarouselController = CarouselController();
+
+  // late initialize name
   late final _username = widget.user.name.split(' ')[0];
-  late final _bannerCarouselController = CarouselController();
 
   // declaration variable
   late String _plantName;
@@ -174,7 +176,9 @@ class _HomePageState extends State<HomePage> {
           // grid list plant
           GridItemsWidget(
             plants: _plantList,
-            gridCount: 2,
+            scrollPhysics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            crossAxisCount: 2,
           ),
         ],
       ),
@@ -227,41 +231,26 @@ class _HomePageState extends State<HomePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Stack(
-        alignment: AlignmentDirectional.topEnd,
-        children: <Widget>[
-          CachedNetworkImage(
-            imageUrl: imageUrl,
-            width: 280,
-            height: 280,
-            fit: BoxFit.fill,
-            fadeInDuration: const Duration(milliseconds: 200),
-            fadeOutDuration: const Duration(milliseconds: 200),
-            placeholder: (context, url) {
-              return Center(
-                child: SpinKitPulse(color: secondaryColor),
-              );
-            },
-            errorWidget: (context, url, error) {
-              return const Center(
-                child: Icon(
-                  Icons.image_not_supported_outlined,
-                  size: 32,
-                ),
-              );
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(4),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.favorite_border_outlined,
-                size: 28,
-              ),
+      child: CachedNetworkImage(
+        imageUrl: imageUrl,
+        width: 280,
+        height: 280,
+        fit: BoxFit.fill,
+        fadeInDuration: const Duration(milliseconds: 200),
+        fadeOutDuration: const Duration(milliseconds: 200),
+        placeholder: (context, url) {
+          return Center(
+            child: SpinKitPulse(color: secondaryColor),
+          );
+        },
+        errorWidget: (context, url, error) {
+          return const Center(
+            child: Icon(
+              Icons.image_not_supported_outlined,
+              size: 32,
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
