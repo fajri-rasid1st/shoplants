@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
-import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
@@ -17,11 +16,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  late List<Cart> _carts;
+  // initialize empty cart
+  List<Cart> _carts = [];
 
   @override
   void initState() {
-    _carts = [];
+    updateCart();
 
     super.initState();
   }
@@ -47,7 +47,7 @@ class _CartScreenState extends State<CartScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: _carts.isEmpty ? null : () => deleteAllCart,
+            onPressed: _carts.isEmpty ? null : () => deleteAllCarts(_carts),
             icon: const Icon(Icons.delete_outline_rounded),
             color: primaryTextColor,
             tooltip: 'Clear Cart',
@@ -58,21 +58,7 @@ class _CartScreenState extends State<CartScreen> {
         toolbarHeight: 64,
         backgroundColor: backGroundColor,
       ),
-      body: FutureBuilder<SharedPreferences>(
-        future: SharedPreferences.getInstance(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData) {
-              if (snapshot.data?.getString(Const.cartId) == 'empty') {
-                return buildEmptyCart();
-              }
-            }
-          }
-
-          updateCart();
-          return buildListCart();
-        },
-      ),
+      body: _carts.isEmpty ? buildEmptyCart() : buildListCart(),
     );
   }
 
@@ -117,6 +103,7 @@ class _CartScreenState extends State<CartScreen> {
 
   InkWell buildCartItem(Cart cart) {
     return InkWell(
+      borderRadius: BorderRadius.circular(12),
       onTap: () {
         Navigator.push(
           context,
@@ -164,15 +151,19 @@ class _CartScreenState extends State<CartScreen> {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Text>[
+                    children: <Widget>[
                       Text(
                         cart.plant.name,
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         cart.plant.alias,
                         style: TextStyle(color: secondaryColor),
                       ),
+                      const SizedBox(height: 8),
                       Text(
                         'Price: \$${cart.plant.price}',
                         style: const TextStyle(fontSize: 20),
@@ -188,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
                 Expanded(
                   flex: 1,
                   child: OutlinedButton(
-                    onPressed: () => deleteSelectedCart(cart.id),
+                    onPressed: () => deleteSelectedCart(cart),
                     child: const Text('Delete'),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.all(12),
@@ -241,14 +232,15 @@ class _CartScreenState extends State<CartScreen> {
     setState(() => _carts = newCarts);
   }
 
-  Future<void> deleteSelectedCart(String cartKey) async {
+  Future<void> deleteSelectedCart(Cart cart) async {
     // obtain shared preference
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.remove(cartKey).then((isSuccess) {
+    prefs.remove(cart.id).then((isSuccess) {
       if (isSuccess) {
         // update cart list
         updateCart();
+
         // create snackbar
         SnackBar snackBar = const SnackBar(
           content: Text(
@@ -269,7 +261,7 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
-  Future<void> deleteAllCart(List<Cart> carts) async {
+  Future<void> deleteAllCarts(List<Cart> carts) async {
     // obtain shared preference
     final prefs = await SharedPreferences.getInstance();
 
@@ -282,7 +274,7 @@ class _CartScreenState extends State<CartScreen> {
     // create snackbar
     SnackBar snackBar = const SnackBar(
       content: Text(
-        'Successfully removed from your cart',
+        'Successfully clear your cart',
         style: TextStyle(
           fontFamily: 'Poppins',
           color: Colors.white,
