@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   // controller
   final _bannerCarouselController = CarouselController();
+  final _plantCarouselController = CarouselController();
 
   // late initialize name
   late final _username = widget.user.name.split(' ')[0];
@@ -39,6 +42,7 @@ class _HomePageState extends State<HomePage> {
 
   // initialize current index of banner carousel
   int _bannerActiveIndex = 0;
+  int _plantActiveIndex = 0;
 
   @override
   void initState() {
@@ -57,7 +61,6 @@ class _HomePageState extends State<HomePage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // carousel banner
           Stack(
             alignment: AlignmentDirectional.bottomCenter,
             children: [
@@ -73,18 +76,21 @@ class _HomePageState extends State<HomePage> {
                       milliseconds: 500,
                     ),
                     autoPlayInterval: const Duration(seconds: 5),
-                    viewportFraction: 1,
+                    height: kIsWeb ? 400 : null,
+                    viewportFraction: kIsWeb ? 0.4 : 1,
+                    enlargeCenterPage: kIsWeb ? true : false,
                     onPageChanged: (index, reason) {
                       setState(() => _bannerActiveIndex = index);
                     }),
               ),
-              buildBannerCarouselIndicator(),
+              buildCarouselIndicator(
+                activeIndex: _bannerActiveIndex,
+                count: _bannerUrls.length,
+                controller: _bannerCarouselController,
+              )
             ],
           ),
-
           const SizedBox(height: 24),
-
-          // some text (1)
           Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Column(
@@ -101,30 +107,28 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
           const SizedBox(height: 16),
-
-          // carousel plant
           CarouselSlider.builder(
+            carouselController: _plantCarouselController,
             itemCount: _plantCarousel.length,
             itemBuilder: (context, index, realIndex) {
               return buildPlantCarousel(_plantCarousel[index], index);
             },
             options: CarouselOptions(
                 aspectRatio: 1 / 1,
+                autoPlay: kIsWeb ? true : false,
                 enlargeCenterPage: true,
                 height: 280,
                 viewportFraction: 0.7,
                 onPageChanged: (index, reason) {
                   setState(() {
+                    _plantActiveIndex = index;
                     _plantName = _plantCarousel[index].name;
                     _plantAlias = _plantCarousel[index].alias;
                     _plantPrice = _plantCarousel[index].price;
                   });
                 }),
           ),
-
-          // some text (2)
           Center(
             child: Column(
               children: [
@@ -140,15 +144,16 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-
+          Center(
+            child: buildCarouselIndicator(
+              activeIndex: _plantActiveIndex,
+              count: _plantCarousel.length,
+              controller: _plantCarouselController,
+            ),
+          ),
           const SizedBox(height: 16),
-
-          // divider
           Divider(height: 4, thickness: 4, color: dividerColor),
-
           const SizedBox(height: 24),
-
-          // some text (3)
           Padding(
             padding: const EdgeInsets.only(left: 16),
             child: Text(
@@ -156,13 +161,36 @@ class _HomePageState extends State<HomePage> {
               style: defaultHeader2,
             ),
           ),
+          LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth <= 768) {
+              return GridItemsWidget(
+                plants: _plantList,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                crossAxisCount: 2,
+              );
+            } else if (constraints.maxWidth <= 1200) {
+              return GridItemsWidget(
+                plants: _plantList,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                crossAxisCount: 4,
+              );
+            }
 
-          // grid item list plant
-          GridItemsWidget(
-            plants: _plantList,
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            crossAxisCount: 2,
-          ),
+            return GridItemsWidget(
+              plants: _plantList,
+              padding: const EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 16,
+              ),
+              crossAxisCount: 6,
+            );
+          })
         ],
       ),
     );
@@ -171,7 +199,7 @@ class _HomePageState extends State<HomePage> {
   CachedNetworkImage buildBannerCarousel(String imageUrl, int index) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
-      fit: BoxFit.cover,
+      fit: kIsWeb ? BoxFit.fitWidth : BoxFit.cover,
       fadeInDuration: const Duration(milliseconds: 200),
       fadeOutDuration: const Duration(milliseconds: 200),
       placeholder: (context, url) {
@@ -187,23 +215,6 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-    );
-  }
-
-  Padding buildBannerCarouselIndicator() {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: AnimatedSmoothIndicator(
-        activeIndex: _bannerActiveIndex,
-        count: _bannerUrls.length,
-        effect: WormEffect(
-          dotWidth: 10,
-          dotHeight: 10,
-          dotColor: dividerColor,
-          activeDotColor: tertiaryColor,
-        ),
-        onDotClicked: (index) => _bannerCarouselController.animateToPage(index),
-      ),
     );
   }
 
@@ -244,6 +255,27 @@ class _HomePageState extends State<HomePage> {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Padding buildCarouselIndicator({
+    required int activeIndex,
+    required int count,
+    required CarouselController controller,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: AnimatedSmoothIndicator(
+        activeIndex: activeIndex,
+        count: count,
+        effect: WormEffect(
+          dotWidth: 10,
+          dotHeight: 10,
+          dotColor: dividerColor,
+          activeDotColor: tertiaryColor,
+        ),
+        onDotClicked: (index) => controller.animateToPage(index),
       ),
     );
   }

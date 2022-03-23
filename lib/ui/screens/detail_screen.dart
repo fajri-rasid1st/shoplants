@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -51,6 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
             transitionOnUserGestures: true,
             child: CachedNetworkImage(
               imageUrl: widget.plant.imgUrls[0],
+              height: kIsWeb ? 360 : null,
               fit: BoxFit.cover,
               fadeInDuration: const Duration(milliseconds: 200),
               fadeOutDuration: const Duration(milliseconds: 200),

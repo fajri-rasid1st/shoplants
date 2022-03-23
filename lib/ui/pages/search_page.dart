@@ -34,11 +34,36 @@ class _SearchPageState extends State<SearchPage> {
             text: _query,
             onChanged: searchPlant,
           ),
-          GridItemsWidget(
-            plants: _plantList,
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-            crossAxisCount: 2,
-          ),
+          LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth <= 768) {
+              return GridItemsWidget(
+                plants: _plantList,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                crossAxisCount: 2,
+              );
+            } else if (constraints.maxWidth <= 1200) {
+              return GridItemsWidget(
+                plants: _plantList,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                  horizontal: 16,
+                ),
+                crossAxisCount: 4,
+              );
+            }
+
+            return GridItemsWidget(
+              plants: _plantList,
+              padding: const EdgeInsets.symmetric(
+                vertical: 8,
+                horizontal: 16,
+              ),
+              crossAxisCount: 6,
+            );
+          })
         ],
       ),
     );
