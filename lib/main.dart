@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
+import 'package:shoplants/ui/screens/loading_screen.dart';
 import 'package:shoplants/ui/screens/main_screen.dart';
 import 'package:shoplants/ui/screens/welcome_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
-import 'package:shoplants/ui/widgets/loading_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
             }
           }
 
-          return const LoadingWidget();
+          return const LoadingScreen();
         },
       ),
     );

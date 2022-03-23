@@ -13,8 +13,13 @@ import 'package:uuid/uuid.dart';
 
 class DetailScreen extends StatefulWidget {
   final Plant plant;
+  final String? previousScreen;
 
-  const DetailScreen({Key? key, required this.plant}) : super(key: key);
+  const DetailScreen({
+    Key? key,
+    required this.plant,
+    this.previousScreen,
+  }) : super(key: key);
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -228,17 +233,19 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
             ),
             duration: const Duration(seconds: 3),
-            action: SnackBarAction(
-              label: 'Show Cart',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CartScreen(),
+            action: widget.previousScreen == '_CartScreenState'
+                ? null
+                : SnackBarAction(
+                    label: 'Show Cart',
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const CartScreen(),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           );
 
           // show snackbar

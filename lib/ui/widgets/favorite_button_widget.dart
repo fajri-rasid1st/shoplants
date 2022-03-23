@@ -18,9 +18,7 @@ class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        setState(() {
-          _isFavorite = !_isFavorite;
-        });
+        setState(() => _isFavorite = !_isFavorite);
 
         SnackBar snackBar = SnackBar(
           content: Text(

@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shoplants/data/models/plant.dart';
 import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/data/utils/const.dart';
+import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 import 'package:shoplants/ui/widgets/grid_items_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -62,9 +64,7 @@ class _HomePageState extends State<HomePage> {
                 carouselController: _bannerCarouselController,
                 itemCount: _bannerUrls.length,
                 itemBuilder: (context, index, realIndex) {
-                  final imageUrl = _bannerUrls[index];
-
-                  return buildBannerCarousel(imageUrl, index);
+                  return buildBannerCarousel(_bannerUrls[index], index);
                 },
                 options: CarouselOptions(
                     autoPlay: true,
@@ -74,9 +74,7 @@ class _HomePageState extends State<HomePage> {
                     autoPlayInterval: const Duration(seconds: 5),
                     viewportFraction: 1,
                     onPageChanged: (index, reason) {
-                      setState(() {
-                        _bannerActiveIndex = index;
-                      });
+                      setState(() => _bannerActiveIndex = index);
                     }),
               ),
               buildBannerCarouselIndicator(),
@@ -112,9 +110,7 @@ class _HomePageState extends State<HomePage> {
           CarouselSlider.builder(
             itemCount: _plantCarousel.length,
             itemBuilder: (context, index, realIndex) {
-              final plant = _plantCarousel[index];
-
-              return buildPlantCarousel(plant.imgUrls[1], index);
+              return buildPlantCarousel(_plantCarousel[index], index);
             },
             options: CarouselOptions(
                 aspectRatio: 1 / 1,
@@ -184,7 +180,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildBannerCarousel(String imageUrl, int index) {
+  CachedNetworkImage buildBannerCarousel(String imageUrl, int index) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       fit: BoxFit.cover,
@@ -206,7 +202,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildBannerCarouselIndicator() {
+  Padding buildBannerCarouselIndicator() {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: AnimatedSmoothIndicator(
@@ -223,33 +219,43 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildPlantCarousel(String imageUrl, int index) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        width: 280,
-        height: 280,
-        fit: BoxFit.fill,
-        fadeInDuration: const Duration(milliseconds: 200),
-        fadeOutDuration: const Duration(milliseconds: 200),
-        placeholder: (context, url) {
-          return Center(
-            child: SpinKitPulse(color: secondaryColor),
-          );
-        },
-        errorWidget: (context, url, error) {
-          return const Center(
-            child: Icon(
-              Icons.image_not_supported_outlined,
-              size: 32,
-            ),
-          );
-        },
+  GestureDetector buildPlantCarousel(Plant plant, int index) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailScreen(plant: plant),
+          ),
+        );
+      },
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 12),
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: CachedNetworkImage(
+          imageUrl: plant.imgUrls[1],
+          width: 280,
+          height: 280,
+          fit: BoxFit.fill,
+          fadeInDuration: const Duration(milliseconds: 200),
+          fadeOutDuration: const Duration(milliseconds: 200),
+          placeholder: (context, url) {
+            return Center(
+              child: SpinKitPulse(color: secondaryColor),
+            );
+          },
+          errorWidget: (context, url, error) {
+            return const Center(
+              child: Icon(
+                Icons.image_not_supported_outlined,
+                size: 32,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

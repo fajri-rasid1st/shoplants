@@ -108,9 +108,12 @@ class _CartScreenState extends State<CartScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailScreen(plant: cart.plant),
+            builder: (context) => DetailScreen(
+              plant: cart.plant,
+              previousScreen: runtimeType.toString(),
+            ),
           ),
-        );
+        ).then((_) => updateCart());
       },
       child: Container(
         padding: const EdgeInsets.all(16),
