@@ -3,11 +3,9 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/models/plant.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
-import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/cart_screen.dart';
 import 'package:shoplants/ui/styles/button_style.dart';
@@ -226,42 +224,34 @@ class _DetailScreenState extends State<DetailScreen> {
         plant: widget.plant,
       ),
     ).then((_) async {
-      // obtain shared preferences
-      final prefs = await SharedPreferences.getInstance();
+      // create snackbar
+      SnackBar snackBar = SnackBar(
+        content: Text(
+          'Successfully added to cart',
+          style: snackBarTitle,
+        ),
+        duration: const Duration(seconds: 3),
+        action: widget.previousScreen == '_CartScreenState'
+            ? null
+            : SnackBarAction(
+                label: 'Show Cart',
+                onPressed: () {
+                  if (!mounted) return;
 
-      // remove data for the default cart key
-      await prefs.remove(Const.cartId).then((isSuccess) {
-        if (isSuccess) {
-          // create snackbar
-          SnackBar snackBar = SnackBar(
-            content: Text(
-              'Successfully added to cart',
-              style: snackBarTitle,
-            ),
-            duration: const Duration(seconds: 3),
-            action: widget.previousScreen == '_CartScreenState'
-                ? null
-                : SnackBarAction(
-                    label: 'Show Cart',
-                    onPressed: () {
-                      if (!mounted) return;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const CartScreen(),
+                    ),
+                  );
+                },
+              ),
+      );
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CartScreen(),
-                        ),
-                      );
-                    },
-                  ),
-          );
-
-          // show snackbar
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(snackBar);
-        }
-      });
+      // show snackbar
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     });
   }
 }

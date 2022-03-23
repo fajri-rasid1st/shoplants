@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
+import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/button_style.dart';
@@ -220,9 +221,9 @@ class _CartScreenState extends State<CartScreen> {
     // obtain shared preference
     final prefs = await SharedPreferences.getInstance();
 
-    // get all keys except default user and default cart
+    // get all keys except default user
     final cartKeys = prefs.getKeys().where((key) {
-      return key != 'user' && key != 'cart';
+      return key != Const.userId;
     }).toList();
 
     final newCarts = <Cart>[];

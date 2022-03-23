@@ -8,9 +8,6 @@ class Const {
   // default user id/key
   static const String userId = "user";
 
-  // default cart id/key
-  static const String cartId = "cart";
-
   // default profile picture path
   static const String profilePath = "assets/img/user_pict.png";
 

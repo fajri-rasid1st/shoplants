@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
@@ -192,16 +191,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             imagePath: Const.profilePath,
           );
 
-          // obtained shared preferences
-          final prefs = await SharedPreferences.getInstance();
-
-          // set user and cart
-          Future.wait([
-            // set user
-            UserPreferences.setUser(user),
-            // set empty cart
-            prefs.setString(Const.cartId, 'empty'),
-          ]).then((_) {
+          // set user
+          UserPreferences.setUser(user).then((_) {
             // navigate and replace this screen with main screen
             Navigator.pushReplacement(
               context,
