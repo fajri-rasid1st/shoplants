@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
+import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
@@ -157,6 +158,8 @@ class _CartScreenState extends State<CartScreen> {
                     children: <Widget>[
                       Text(
                         cart.plant.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -169,7 +172,11 @@ class _CartScreenState extends State<CartScreen> {
                       const SizedBox(height: 8),
                       Text(
                         'Price: \$${cart.plant.price}',
-                        style: const TextStyle(fontSize: 20),
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: primaryColor,
+                        ),
                       ),
                     ],
                   ),
@@ -196,7 +203,21 @@ class _CartScreenState extends State<CartScreen> {
                 Expanded(
                   flex: 1,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(24),
+                          ),
+                        ),
+                        builder: (context) {
+                          return CheckoutPage(plant: cart.plant);
+                        },
+                        backgroundColor: backGroundColor,
+                      );
+                    },
                     child: const Text(
                       "Checkout",
                       style: TextStyle(fontWeight: FontWeight.bold),

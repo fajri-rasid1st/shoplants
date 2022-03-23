@@ -6,6 +6,7 @@ import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/models/plant.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
 import 'package:shoplants/data/utils/const.dart';
+import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/cart_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 import 'package:shoplants/ui/widgets/favorite_button_widget.dart';
@@ -149,7 +150,21 @@ class _DetailScreenState extends State<DetailScreen> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(24),
+                                  ),
+                                ),
+                                builder: (context) {
+                                  return CheckoutPage(plant: widget.plant);
+                                },
+                                backgroundColor: backGroundColor,
+                              );
+                            },
                             icon: const Icon(Icons.shopping_cart_checkout),
                             label: Text(
                               "Checkout \$${widget.plant.price}",
