@@ -213,7 +213,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         builder: (context) {
-                          return CheckoutPage(plant: cart.plant);
+                          return CheckoutPage(cart: cart, plant: cart.plant);
                         },
                         backgroundColor: backGroundColor,
                       );

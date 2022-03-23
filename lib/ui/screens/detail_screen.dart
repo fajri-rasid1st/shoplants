@@ -99,7 +99,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     ),
                     Text(
                       widget.plant.alias,
-                      style: TextStyle(color: primaryColor),
+                      style: TextStyle(color: secondaryColor),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -253,7 +253,9 @@ class _DetailScreenState extends State<DetailScreen> {
                 : SnackBarAction(
                     label: 'Show Cart',
                     onPressed: () {
-                      Navigator.pushReplacement(
+                      if (!mounted) return;
+
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const CartScreen(),

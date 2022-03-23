@@ -1,13 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/models/plant.dart';
+import 'package:shoplants/ui/screens/finished_order_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 
 class CheckoutPage extends StatefulWidget {
   final Plant plant;
+  final Cart? cart;
 
-  const CheckoutPage({Key? key, required this.plant}) : super(key: key);
+  const CheckoutPage({
+    Key? key,
+    required this.plant,
+    this.cart,
+  }) : super(key: key);
 
   @override
   State<CheckoutPage> createState() => _CheckoutPageState();
@@ -109,70 +117,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
         ),
         Divider(height: 1, thickness: 1, color: dividerColor),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Payment Method:',
-                style: TextStyle(color: primaryColor),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'COD (Cash On Delivery)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
-                    ),
-                  ),
-                  Text(
-                    '(only support this payment method)',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: secondaryTextColor,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        buildSection(
+          text1: 'Payment Method:',
+          text2: 'COD (Cash On Delivery)',
+          text3: '(only support this payment method)',
         ),
         Divider(height: 1, thickness: 1, color: dividerColor),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Delivery Service:',
-                style: TextStyle(color: primaryColor),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    'Shoplants Express',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
-                    ),
-                  ),
-                  Text(
-                    '(only support this service)',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: secondaryTextColor,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        buildSection(
+          text1: 'Delivery Service:',
+          text2: 'Shoplants Express',
+          text3: '(only support this service)',
         ),
         Divider(height: 1, thickness: 1, color: dividerColor),
         Padding(
@@ -190,7 +144,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               const SizedBox(width: 16),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => makeOrder(widget.cart),
                   child: const Text(
                     "Order Now",
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -207,6 +161,64 @@ class _CheckoutPageState extends State<CheckoutPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Padding buildSection({
+    required String text1,
+    required String text2,
+    required String text3,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text1,
+            style: TextStyle(color: primaryColor),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                text2,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: primaryColor,
+                ),
+              ),
+              Text(
+                text3,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: secondaryTextColor,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> makeOrder(Cart? cart) async {
+    // obtain shared preference
+    final prefs = await SharedPreferences.getInstance();
+
+    // if user checkout via cart list, delete cart that has been ordered
+    // otherwise, just navigate to other screen because user is checkout via detail screen
+    if (cart != null) {
+      prefs.remove(cart.id);
+    }
+
+    // navigate to finished order screen
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => const FinishedOrderScreen()),
+      ),
     );
   }
 }
