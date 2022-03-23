@@ -7,6 +7,7 @@ import 'package:shoplants/data/models/user.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 import 'package:shoplants/ui/widgets/grid_items_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -91,10 +92,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   'Special For You, $_username.',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: defaultHeader2,
                 ),
                 const Text(
                   'Choose the ornamental plant you want.',
@@ -132,19 +130,12 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Text(
                   _plantName,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: defaultHeader2,
                 ),
                 Text(_plantAlias),
                 Text(
                   '\$$_plantPrice',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: secondaryColor,
-                  ),
+                  style: secondaryHeader1,
                 ),
               ],
             ),
@@ -158,14 +149,11 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 24),
 
           // some text (3)
-          const Padding(
-            padding: EdgeInsets.only(left: 16),
+          Padding(
+            padding: const EdgeInsets.only(left: 16),
             child: Text(
               'Most Sales This Week',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: defaultHeader2,
             ),
           ),
 

@@ -4,8 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/models/plant.dart';
+import 'package:shoplants/data/utils/const.dart';
+import 'package:shoplants/data/utils/user_preferences.dart';
 import 'package:shoplants/ui/screens/finished_order_screen.dart';
+import 'package:shoplants/ui/styles/button_style.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class CheckoutPage extends StatefulWidget {
   final Plant plant;
@@ -41,14 +45,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.fromLTRB(16, 0, 16, 8),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: Text(
             'Checkout',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: defaultHeader1,
           ),
         ),
         Padding(
@@ -86,10 +87,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       widget.plant.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: defaultTitle,
                     ),
                     Text(
                       widget.plant.alias,
@@ -98,23 +96,23 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     const SizedBox(height: 8),
                     Text(
                       'Cares and Features:',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: secondaryTextColor,
-                      ),
+                      style: secondarySubTitle,
                     ),
                     Text(
                       widget.plant.characteristics.join(", "),
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: secondaryTextColor,
-                      ),
+                      style: secondarySubTitle,
                     ),
                   ],
                 ),
               ),
             ],
           ),
+        ),
+        Divider(height: 1, thickness: 1, color: dividerColor),
+        buildSection(
+          text1: 'Recipient\'s name:',
+          text2: UserPreferences.getUser(Const.userId)!.name,
+          text3: '(Address: ${UserPreferences.getUser(Const.userId)!.address})',
         ),
         Divider(height: 1, thickness: 1, color: dividerColor),
         buildSection(
@@ -135,11 +133,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             children: [
               Text(
                 'Total: \$${widget.plant.price}',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor,
-                ),
+                style: primaryHeader2,
               ),
               const SizedBox(width: 16),
               Expanded(
@@ -149,12 +143,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     "Order Now",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
+                  style: elevatedButtonStyle,
                 ),
               ),
             ],
@@ -184,17 +173,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
             children: [
               Text(
                 text2,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: primaryColor,
-                ),
+                style: primaryBoldText,
               ),
               Text(
                 text3,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: secondaryTextColor,
-                ),
+                style: secondarySubTitle,
               ),
             ],
           ),

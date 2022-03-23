@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shoplants/data/models/plant.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class GridItemWidget extends StatelessWidget {
   final Plant plant;
@@ -59,10 +60,7 @@ class GridItemWidget extends StatelessWidget {
                   Text(plant.name),
                   Text(
                     '\$${plant.price}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: defaultHeader3,
                   ),
                 ],
               ),

@@ -4,6 +4,7 @@ import 'package:shoplants/ui/pages/home_page.dart';
 import 'package:shoplants/ui/pages/search_page.dart';
 import 'package:shoplants/ui/screens/cart_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class MainScreen extends StatefulWidget {
   final User user;
@@ -47,11 +48,7 @@ class _MainScreenState extends State<MainScreen> {
     return AppBar(
       title: Text(
         title,
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: primaryTextColor,
-        ),
+        style: defaultHeader1,
       ),
       actions: <Widget>[
         Padding(

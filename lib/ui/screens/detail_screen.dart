@@ -8,7 +8,9 @@ import 'package:shoplants/data/utils/cart_preferences.dart';
 import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/cart_screen.dart';
+import 'package:shoplants/ui/styles/button_style.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 import 'package:shoplants/ui/widgets/favorite_button_widget.dart';
 import 'package:uuid/uuid.dart';
 
@@ -92,10 +94,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   children: <Widget>[
                     Text(
                       widget.plant.name,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: defaultHeader1,
                     ),
                     Text(
                       widget.plant.alias,
@@ -140,12 +139,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         OutlinedButton(
                           onPressed: addToCart,
                           child: const Icon(Icons.add_shopping_cart),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.all(12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
+                          style: outlinedButtonStyle,
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -172,12 +166,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
+                            style: elevatedButtonStyle,
                           ),
                         ),
                       ],
@@ -240,12 +229,9 @@ class _DetailScreenState extends State<DetailScreen> {
         if (isSuccess) {
           // create snackbar
           SnackBar snackBar = SnackBar(
-            content: const Text(
+            content: Text(
               'Successfully added to cart',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
+              style: snackBarTitle,
             ),
             duration: const Duration(seconds: 3),
             action: widget.previousScreen == '_CartScreenState'

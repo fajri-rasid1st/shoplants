@@ -4,7 +4,9 @@ import 'package:shoplants/data/utils/const.dart';
 import 'package:shoplants/data/utils/user_preferences.dart';
 import 'package:shoplants/ui/screens/loading_screen.dart';
 import 'package:shoplants/ui/screens/main_screen.dart';
+import 'package:shoplants/ui/styles/button_style.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class FinishedOrderScreen extends StatelessWidget {
   const FinishedOrderScreen({Key? key}) : super(key: key);
@@ -37,12 +39,9 @@ class FinishedOrderScreen extends StatelessWidget {
                 height: 300,
                 fit: BoxFit.cover,
               ),
-              const Text(
+              Text(
                 'Nice, your order is being delivered!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: defaultHeader2,
               ),
               Text(
                 'While waiting, let\'s look at the other plants.',
@@ -65,12 +64,7 @@ class FinishedOrderScreen extends StatelessWidget {
                   );
                 },
                 child: const Text('Discover Another Plants'),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
+                style: elevatedButtonStyle,
               ),
             ],
           ),

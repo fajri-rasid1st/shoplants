@@ -7,7 +7,9 @@ import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/utils/cart_preferences.dart';
 import 'package:shoplants/ui/pages/checkout_page.dart';
 import 'package:shoplants/ui/screens/detail_screen.dart';
+import 'package:shoplants/ui/styles/button_style.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -39,11 +41,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         title: Text(
           'My Cart',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: primaryTextColor,
-          ),
+          style: defaultHeader1,
         ),
         centerTitle: true,
         actions: [
@@ -76,12 +74,9 @@ class _CartScreenState extends State<CartScreen> {
               height: 300,
               fit: BoxFit.cover,
             ),
-            const Text(
+            Text(
               'Oops, your cart is still empty!',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: defaultHeader2,
             ),
             Text(
               'Your cart list will appear here.',
@@ -160,10 +155,7 @@ class _CartScreenState extends State<CartScreen> {
                         cart.plant.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: defaultTitle,
                       ),
                       Text(
                         cart.plant.alias,
@@ -172,11 +164,7 @@ class _CartScreenState extends State<CartScreen> {
                       const SizedBox(height: 8),
                       Text(
                         'Price: \$${cart.plant.price}',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                        ),
+                        style: primaryHeader2,
                       ),
                     ],
                   ),
@@ -191,12 +179,7 @@ class _CartScreenState extends State<CartScreen> {
                   child: OutlinedButton(
                     onPressed: () => deleteSelectedCart(cart),
                     child: const Text('Delete'),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.all(12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                    style: outlinedButtonStyle,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -222,12 +205,7 @@ class _CartScreenState extends State<CartScreen> {
                       "Checkout",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                    style: elevatedButtonStyle,
                   ),
                 ),
               ],
@@ -266,15 +244,12 @@ class _CartScreenState extends State<CartScreen> {
         updateCart();
 
         // create snackbar
-        SnackBar snackBar = const SnackBar(
+        SnackBar snackBar = SnackBar(
           content: Text(
             'Successfully removed from your cart',
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.white,
-            ),
+            style: snackBarTitle,
           ),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
 
         // show snackbar
@@ -296,15 +271,12 @@ class _CartScreenState extends State<CartScreen> {
     }
 
     // create snackbar
-    SnackBar snackBar = const SnackBar(
+    SnackBar snackBar = SnackBar(
       content: Text(
         'Successfully clear your cart',
-        style: TextStyle(
-          fontFamily: 'Poppins',
-          color: Colors.white,
-        ),
+        style: snackBarTitle,
       ),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     );
 
     // show snackbar

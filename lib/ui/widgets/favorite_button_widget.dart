@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
+import 'package:shoplants/ui/styles/text_style.dart';
 
 class FavoriteButtonWidget extends StatefulWidget {
   const FavoriteButtonWidget({Key? key}) : super(key: key);
@@ -23,10 +24,7 @@ class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
         SnackBar snackBar = SnackBar(
           content: Text(
             _isFavorite ? _favoriteAdded : _favoriteRemoved,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.white,
-            ),
+            style: snackBarTitle,
           ),
           duration: const Duration(seconds: 3),
         );
