@@ -192,7 +192,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
             imagePath: Const.profilePath,
           );
 
-          // obtained shared preference
+          // obtained shared preferences
           final prefs = await SharedPreferences.getInstance();
 
           // set user and cart

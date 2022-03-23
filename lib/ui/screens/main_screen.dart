@@ -57,11 +57,7 @@ class _MainScreenState extends State<MainScreen> {
         Padding(
           padding: const EdgeInsets.only(right: 16),
           child: GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Clicked')),
-              );
-            },
+            onTap: () {},
             child: CircleAvatar(
               radius: 20,
               backgroundColor: secondaryColor,

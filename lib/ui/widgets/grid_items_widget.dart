@@ -26,9 +26,7 @@ class GridItemsWidget extends StatelessWidget {
         childAspectRatio: 0.6,
       ),
       shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return GridItemWidget(plant: plants[index]);
-      },
+      itemBuilder: (context, index) => GridItemWidget(plant: plants[index]),
       itemCount: plants.length,
     );
   }

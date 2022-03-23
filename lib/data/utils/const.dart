@@ -211,7 +211,7 @@ class Const {
       ],
     ),
     Plant(
-      name: "Swiss Cheese Plant",
+      name: "Swiss Cheese Plant Asiap",
       alias: "Ceriman",
       price: 56,
       about:

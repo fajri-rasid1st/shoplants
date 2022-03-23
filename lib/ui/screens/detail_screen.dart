@@ -1,9 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shoplants/data/models/cart.dart';
 import 'package:shoplants/data/models/plant.dart';
+import 'package:shoplants/data/utils/cart_preferences.dart';
+import 'package:shoplants/data/utils/const.dart';
+import 'package:shoplants/ui/screens/cart_screen.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 import 'package:shoplants/ui/widgets/favorite_button_widget.dart';
+import 'package:uuid/uuid.dart';
 
 class DetailScreen extends StatefulWidget {
   final Plant plant;
@@ -126,7 +132,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Row(
                       children: <Widget>[
                         OutlinedButton(
-                          onPressed: () {},
+                          onPressed: addToCart,
                           child: const Icon(Icons.add_shopping_cart),
                           style: OutlinedButton.styleFrom(
                             padding: const EdgeInsets.all(12),
@@ -197,5 +203,50 @@ class _DetailScreenState extends State<DetailScreen> {
         ],
       ),
     );
+  }
+
+  void addToCart() {
+    CartPreferences.setCart(
+      Cart(
+        id: const Uuid().v4(),
+        plant: widget.plant,
+      ),
+    ).then((_) async {
+      // obtain shared preferences
+      final prefs = await SharedPreferences.getInstance();
+
+      // remove data for the default cart key
+      await prefs.remove(Const.cartId).then((isSuccess) {
+        if (isSuccess) {
+          // create snackbar
+          SnackBar snackBar = SnackBar(
+            content: const Text(
+              'Successfully added to cart',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+            ),
+            duration: const Duration(seconds: 3),
+            action: SnackBarAction(
+              label: 'Show Cart',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CartScreen(),
+                  ),
+                );
+              },
+            ),
+          );
+
+          // show snackbar
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(snackBar);
+        }
+      });
+    });
   }
 }

@@ -9,8 +9,8 @@ class FavoriteButtonWidget extends StatefulWidget {
 }
 
 class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
-  final String _favoriteAdded = 'Liked.';
-  final String _favoriteRemoved = 'Unliked.';
+  final String _favoriteAdded = 'Liked';
+  final String _favoriteRemoved = 'Unliked';
 
   bool _isFavorite = false;
 
@@ -23,7 +23,13 @@ class _FavoriteButtonWidgetState extends State<FavoriteButtonWidget> {
         });
 
         SnackBar snackBar = SnackBar(
-          content: Text(_isFavorite ? _favoriteAdded : _favoriteRemoved),
+          content: Text(
+            _isFavorite ? _favoriteAdded : _favoriteRemoved,
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+              color: Colors.white,
+            ),
+          ),
           duration: const Duration(seconds: 3),
         );
 

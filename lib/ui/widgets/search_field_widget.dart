@@ -49,10 +49,8 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
                     _controller.clear();
                     widget.onChanged('');
                   },
-                  icon: Icon(
-                    Icons.close,
-                    color: primaryTextColor,
-                  ),
+                  icon: const Icon(Icons.close),
+                  color: primaryTextColor,
                 ),
         ),
         onChanged: widget.onChanged,
