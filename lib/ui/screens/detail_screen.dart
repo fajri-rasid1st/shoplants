@@ -109,31 +109,33 @@ class _DetailScreenState extends State<DetailScreen> {
                       style: TextStyle(color: secondaryTextColor),
                     ),
                     const SizedBox(height: 16),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: <Widget>[
-                          buildPlantCharacteristic(
-                            icon: Icons.water_drop_outlined,
-                            characteristic: widget.plant.characteristics[0],
-                          ),
-                          const SizedBox(width: 12),
-                          buildPlantCharacteristic(
-                            icon: Icons.wb_sunny_outlined,
-                            characteristic: widget.plant.characteristics[1],
-                          ),
-                          const SizedBox(width: 12),
-                          buildPlantCharacteristic(
-                            icon: Icons.crop_free_outlined,
-                            characteristic: widget.plant.characteristics[2],
-                          ),
-                          const SizedBox(width: 12),
-                          buildPlantCharacteristic(
-                            icon: Icons.thermostat_outlined,
-                            iconSize: 40,
-                            characteristic: widget.plant.characteristics[3],
-                          ),
-                        ],
+                    Center(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: <Widget>[
+                            buildPlantCharacteristic(
+                              icon: Icons.water_drop_outlined,
+                              characteristic: widget.plant.characteristics[0],
+                            ),
+                            const SizedBox(width: 12),
+                            buildPlantCharacteristic(
+                              icon: Icons.wb_sunny_outlined,
+                              characteristic: widget.plant.characteristics[1],
+                            ),
+                            const SizedBox(width: 12),
+                            buildPlantCharacteristic(
+                              icon: Icons.crop_free_outlined,
+                              characteristic: widget.plant.characteristics[2],
+                            ),
+                            const SizedBox(width: 12),
+                            buildPlantCharacteristic(
+                              icon: Icons.thermostat_outlined,
+                              iconSize: 40,
+                              characteristic: widget.plant.characteristics[3],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),

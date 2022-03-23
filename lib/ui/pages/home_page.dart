@@ -144,13 +144,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Center(
-            child: buildCarouselIndicator(
-              activeIndex: _plantActiveIndex,
-              count: _plantCarousel.length,
-              controller: _plantCarouselController,
-            ),
-          ),
+          if (kIsWeb) ...[
+            Center(
+              child: buildCarouselIndicator(
+                activeIndex: _plantActiveIndex,
+                count: _plantCarousel.length,
+                controller: _plantCarouselController,
+              ),
+            )
+          ],
           const SizedBox(height: 16),
           Divider(height: 4, thickness: 4, color: dividerColor),
           const SizedBox(height: 24),
