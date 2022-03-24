@@ -17,12 +17,16 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   late String _name;
   late String _address;
 
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _adressController = TextEditingController();
+  late final GlobalKey<FormState> _formKey;
+  late final TextEditingController _nameController;
+  late final TextEditingController _adressController;
 
   @override
   void initState() {
+    _formKey = GlobalKey<FormState>();
+    _nameController = TextEditingController();
+    _adressController = TextEditingController();
+
     _nameController.addListener(() => setState(() {}));
     _adressController.addListener(() => setState(() {}));
 

@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
   final _bannerUrls = Const.imgBannerUrls;
 
   // controller
-  final _bannerCarouselController = CarouselController();
-  final _plantCarouselController = CarouselController();
+  late final CarouselController _bannerCarouselController;
+  late final CarouselController _plantCarouselController;
 
   // late initialize name
   late final _username = widget.user.name.split(' ')[0];
@@ -46,6 +46,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    _bannerCarouselController = CarouselController();
+    _plantCarouselController = CarouselController();
+
     _plantName = _plantCarousel[0].name;
     _plantAlias = _plantCarousel[0].alias;
     _plantPrice = _plantCarousel[0].price;
