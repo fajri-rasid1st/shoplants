@@ -11,7 +11,7 @@ import 'package:shoplants/ui/styles/button_style.dart';
 import 'package:shoplants/ui/styles/color_scheme.dart';
 import 'package:shoplants/ui/styles/text_style.dart';
 
-class CheckoutPage extends StatefulWidget {
+class CheckoutPage extends StatelessWidget {
   final Plant plant;
   final Cart? cart;
 
@@ -21,11 +21,6 @@ class CheckoutPage extends StatefulWidget {
     this.cart,
   }) : super(key: key);
 
-  @override
-  State<CheckoutPage> createState() => _CheckoutPageState();
-}
-
-class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,7 +55,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: CachedNetworkImage(
-                  imageUrl: widget.plant.imgUrls[1],
+                  imageUrl: plant.imgUrls[1],
                   width: 96,
                   height: 96,
                   fit: BoxFit.cover,
@@ -84,13 +79,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.plant.name,
+                      plant.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: defaultTitle,
                     ),
                     Text(
-                      widget.plant.alias,
+                      plant.alias,
                       style: TextStyle(color: secondaryColor),
                     ),
                     const SizedBox(height: 8),
@@ -99,7 +94,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       style: secondarySubTitle,
                     ),
                     Text(
-                      widget.plant.characteristics.join(", "),
+                      plant.characteristics.join(", "),
                       style: secondarySubTitle,
                     ),
                   ],
@@ -132,13 +127,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
           child: Row(
             children: [
               Text(
-                'Total: \$${widget.plant.price}',
+                'Total: \$${plant.price}',
                 style: primaryHeader2,
               ),
               const SizedBox(width: 16),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => makeOrder(widget.cart),
+                  onPressed: () => makeOrder(context, cart),
                   child: const Text(
                     "Order Now",
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -193,12 +188,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Future<void> makeOrder(Cart? cart) async {
+  Future<void> makeOrder(BuildContext context, Cart? cart) async {
     // obtain shared preference
     final prefs = await SharedPreferences.getInstance();
 
     // if user checkout via cart list, delete cart that has been ordered
-    // otherwise, just navigate to other screen because user is checkout via detail screen
     if (cart != null) {
       prefs.remove(cart.id);
     }
