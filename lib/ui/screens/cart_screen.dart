@@ -92,8 +92,6 @@ class _CartScreenState extends State<CartScreen> {
   ListView buildListCart() {
     return ListView.separated(
       padding: const EdgeInsets.all(16),
-      reverse: true,
-      shrinkWrap: true,
       itemBuilder: (context, index) => buildCartItem(_carts[index]),
       separatorBuilder: (context, index) => const SizedBox(height: 8),
       itemCount: _carts.length,
@@ -199,7 +197,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         builder: (context) {
-                          return CheckoutPage(cart: cart, plant: cart.plant);
+                          return CheckoutPage(plant: cart.plant, cart: cart);
                         },
                         backgroundColor: backGroundColor,
                       );

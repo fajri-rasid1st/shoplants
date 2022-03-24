@@ -16,11 +16,13 @@ import 'package:uuid/uuid.dart';
 
 class DetailScreen extends StatefulWidget {
   final Plant plant;
+  final Cart? cart;
   final String? previousScreen;
 
   const DetailScreen({
     Key? key,
     required this.plant,
+    this.cart,
     this.previousScreen,
   }) : super(key: key);
 
@@ -157,7 +159,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ),
                                 ),
                                 builder: (context) {
-                                  return CheckoutPage(plant: widget.plant);
+                                  return CheckoutPage(
+                                    plant: widget.plant,
+                                    cart: widget.cart,
+                                  );
                                 },
                                 backgroundColor: backGroundColor,
                               );
