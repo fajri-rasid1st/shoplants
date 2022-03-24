@@ -112,7 +112,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
         buildSection(
           text1: 'Recipient\'s name:',
           text2: UserPreferences.getUser(Const.userId)!.name,
-          text3: '(Address: ${UserPreferences.getUser(Const.userId)!.address})',
+          text3: '(${UserPreferences.getUser(Const.userId)!.address})',
         ),
         Divider(height: 1, thickness: 1, color: dividerColor),
         buildSection(
@@ -168,18 +168,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
             text1,
             style: TextStyle(color: primaryColor),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                text2,
-                style: primaryBoldText,
-              ),
-              Text(
-                text3,
-                style: secondarySubTitle,
-              ),
-            ],
+          const SizedBox(width: 16),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  text2,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: primaryBoldText,
+                ),
+                Text(
+                  text3,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: secondarySubTitle,
+                ),
+              ],
+            ),
           ),
         ],
       ),

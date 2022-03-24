@@ -30,7 +30,7 @@ class Const {
         "Drained",
         "Normal Light",
         "60 x 100 cm",
-        "20-25 °c",
+        "20-25°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_alocasia-removebg-preview.png",
@@ -47,7 +47,7 @@ class Const {
         "Drained",
         "Full Light",
         "30 x 50 cm",
-        "13-27 °c",
+        "13-27°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_aloe_vera-removebg-preview.png",
@@ -64,7 +64,7 @@ class Const {
         "Drained",
         "Full Light",
         "80 x 120 cm",
-        "18-25 °c",
+        "18-25°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_areca_palm-removebg-preview.png",
@@ -81,7 +81,7 @@ class Const {
         "Moistened",
         "Low Light",
         "40 x 80 cm",
-        "10-18 °c",
+        "10-18°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_asparagus_fern-removebg-preview.png",
@@ -98,7 +98,7 @@ class Const {
         "Moistened",
         "Normal Light",
         "68 x 124 cm",
-        "23-32 °c",
+        "23-32°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_banana_tree-removebg-preview.png",
@@ -115,7 +115,7 @@ class Const {
         "Drained",
         "Full Light",
         "30 x 60 cm",
-        "18-40 °c",
+        "18-40°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_cactus-removebg-preview.png",
@@ -132,7 +132,7 @@ class Const {
         "Weted",
         "Low Light",
         "25 x 50 cm",
-        "11-18 °c",
+        "11-18°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_chinese_money-removebg-preview.png",
@@ -149,7 +149,7 @@ class Const {
         "Drained",
         "Normal Light",
         "30 x 60 cm",
-        "13-25 °c",
+        "13-25°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_dracaena_trifasciata-removebg-preview.png",
@@ -166,7 +166,7 @@ class Const {
         "Drained",
         "Full Light",
         "45 x 75 cm",
-        "18-27 °c",
+        "18-27°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_ficus_lyrata-removebg-preview.png",
@@ -183,7 +183,7 @@ class Const {
         "Moistened",
         "Low Light",
         "30 x 60 cm",
-        "13-32 °c",
+        "13-32°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_fishbone_cactus-removebg-preview.png",
@@ -200,7 +200,7 @@ class Const {
         "Drained",
         "Full Light",
         "80 x 200 cm",
-        "10-20 °c",
+        "10-20°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_leyland_cypress-removebg-preview.png",
@@ -217,7 +217,7 @@ class Const {
         "Weted",
         "Low Light",
         "40 x 60 cm",
-        "15-24 °c",
+        "15-24°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_monstera_deliciosa-removebg-preview.png",
@@ -234,7 +234,7 @@ class Const {
         "Moistened",
         "Normal Light",
         "28 x 40 cm",
-        "18-27 °c",
+        "18-27°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_paddle_removebg-preview.png",
@@ -251,7 +251,7 @@ class Const {
         "Drained",
         "Normal Light",
         "60 x 90 cm",
-        "18-25 °c",
+        "18-25°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_spider-removebg-preview.png",
@@ -268,7 +268,7 @@ class Const {
         "Drained",
         "Full Light",
         "30 x 60 cm",
-        "18-40 °c",
+        "18-40°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_red_hat_bunny_cactus-removebg-preview.png",
@@ -285,7 +285,7 @@ class Const {
         "Drained",
         "Normal Light",
         "50 x 75 cm",
-        "18-37 °c",
+        "18-37°c",
       ],
       imgUrls: <String>[
         "$baseUrl/plant_velvet_calathea-removebg-preview.png",
