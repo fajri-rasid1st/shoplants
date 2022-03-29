@@ -13,20 +13,6 @@ class User {
     required this.imagePath,
   });
 
-  User copyWith({
-    String? id,
-    String? name,
-    String? address,
-    String? imagePath,
-  }) {
-    return User(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      address: address ?? this.address,
-      imagePath: imagePath ?? this.imagePath,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
