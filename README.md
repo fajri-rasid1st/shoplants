@@ -1,6 +1,11 @@
 # shoplants
 
-A new Flutter project.
+Ornamental Plant Purchase App.
+
+![demo-1](https://raw.githubusercontent.com/fajri-rasid1st/assets/main/demo_app_gif/shoplants_demo_1.gif)
+![demo-2](https://raw.githubusercontent.com/fajri-rasid1st/assets/main/demo_app_gif/shoplants_demo_2.gif)
+![demo-3](https://raw.githubusercontent.com/fajri-rasid1st/assets/main/demo_app_gif/shoplants_demo_3.gif)
+![demo-4](https://raw.githubusercontent.com/fajri-rasid1st/assets/main/demo_app_gif/shoplants_demo_4.gif)
 
 ## Getting Started
 
